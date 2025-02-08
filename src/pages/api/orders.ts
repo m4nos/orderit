@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             status,
             totalPrice,
             products: {
-              connect: productIds.map((id: number) => ({ id })),
+              connect: productIds.map((id: string) => ({ id })), // Ensure IDs are strings
             },
           },
         });
@@ -37,8 +37,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       break;
 
     case 'PATCH':
+      console.log(req.body)
       try {
         const { id, status } = req.body;
+        console.log(status)
         const updatedOrder = await prisma.order.update({
           where: { id },
           data: { status },

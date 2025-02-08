@@ -9,18 +9,23 @@
 
 .links {
   margin-top: 20px;
+  display: flex;
+  gap: 20px;
 }
 
-.link {
-  margin: 0 10px;
-  padding: 10px 20px;
-  background-color: #0070f3;
-  color: white;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background-color 0.3s;
+.button {
+  background-color: #71b3ff !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 5px !important;
+  text-transform: none !important;
+  font-weight: bold !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  transition: background-color 0.3s, transform 0.3s !important;
 }
 
-.link:hover {
-  background-color: #005bb5;
+.button:hover {
+  background-color: #005bb5 !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
 } 

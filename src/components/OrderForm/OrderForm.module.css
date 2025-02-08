@@ -1,0 +1,37 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  width: 400px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+.textField {
+  width: 100%;
+}
+
+.submitButton {
+  align-self: flex-end;
+}
+
+.submitButton:hover {
+  background-color: #1565c0;
+}
+
+.errorMessage {
+  color: red;
+  margin-top: -8px;
+} 
+
+.formContainer h1 {
+  color: #1565c0;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}

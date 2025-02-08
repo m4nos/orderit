@@ -4,7 +4,7 @@ import "./globals.css";
 import ReduxProvider from "../providers/ReduxProvider";
 import React from "react";
 import NavBar from "@/components/NavBar";
-
+import LocalizationProvider from "@/providers/LocalizationProvider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,8 +29,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ReduxProvider>
-          <NavBar /> {/* Add the NavBar component here */}
-          <main>{children}</main>
+          <LocalizationProvider>
+            <NavBar />
+            <main>{children}</main>
+          </LocalizationProvider>
         </ReduxProvider>
       </body>
     </html>

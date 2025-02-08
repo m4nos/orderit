@@ -18,7 +18,7 @@ export const api = createApi({
         body: newOrder,
       }),
     }),
-    updateOrderStatus: builder.mutation<void, { id: number; status: 'completed' | 'cancelled' }>({
+    updateOrderStatus: builder.mutation<void, { id: string; status: 'completed' | 'cancelled' }>({
       query: ({ id, status }) => ({
         url: `orders/${id}`,
         method: 'PATCH',

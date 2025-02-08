@@ -2,7 +2,7 @@ import { Product } from '@prisma/client';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Order {
-  id: number;
+  id: string;
   deliveryDate: string;
   customerName: string;
   status: 'pending' | 'completed' | 'cancelled';
@@ -28,7 +28,7 @@ const ordersSlice = createSlice({
     addOrder(state, action: PayloadAction<Order>) {
       state.orders.push(action.payload);
     },
-    updateOrderStatus(state, action: PayloadAction<{ id: number; status: 'completed' | 'cancelled' }>) {
+    updateOrderStatus(state, action: PayloadAction<{ id: string; status: 'completed' | 'cancelled' }>) {
       const order = state.orders.find(order => order.id === action.payload.id);
       if (order) {
         order.status = action.payload.status;

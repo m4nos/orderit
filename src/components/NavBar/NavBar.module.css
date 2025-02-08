@@ -1,19 +1,26 @@
 .navbar {
   background-color: #333;
   padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navList {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .navItem a {
   color: white;
   text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px;
+  transition: color 0.3s, transform 0.3s;
 }
 
 .navItem a:hover {
-  text-decoration: underline;
+  background-color:   #002444;
+  border-radius: 5px;
+  transform: scale(1.05);
 } 

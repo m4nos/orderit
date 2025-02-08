@@ -1,12 +1,14 @@
 import React from "react";
-import ProductsTable from "../../components/ProductsTable";
+import ProductsTable from "@/components/ProductsTable";
+import OrderForm from "@/components/OrderForm";
+import { Stack } from "@mui/material";
 
 const ProductsPage = () => {
   return (
-    <div>
-      <h1>Products</h1>
+    <Stack direction="row" spacing={2} justifyContent="center" padding={3}>
       <ProductsTable />
-    </div>
+      <OrderForm />
+    </Stack>
   );
 };
 

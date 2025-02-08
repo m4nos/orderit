@@ -8,15 +8,15 @@ generator client {
 }
 
 model Product {
-    id      Int    @id @default(autoincrement())
+    id      String  @id @default(uuid())
     name    String
     price   Float
-    Order   Order? @relation(fields: [orderId], references: [id])
-    orderId Int?
+    Order   Order?  @relation(fields: [orderId], references: [id])
+    orderId String?
 }
 
 model Order {
-    id           Int       @id @default(autoincrement())
+    id           String    @id @default(uuid())
     deliveryDate DateTime
     customerName String
     status       String

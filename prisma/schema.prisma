@@ -1,0 +1,25 @@
+datasource db {
+    provider = "sqlite"
+    url      = "file:./dev.db"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Product {
+    id      Int    @id @default(autoincrement())
+    name    String
+    price   Float
+    Order   Order? @relation(fields: [orderId], references: [id])
+    orderId Int?
+}
+
+model Order {
+    id           Int       @id @default(autoincrement())
+    deliveryDate DateTime
+    customerName String
+    status       String
+    products     Product[]
+    totalPrice   Float
+}

@@ -1,15 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useGetOrdersQuery } from "@/services/api";
 import { Order } from "@prisma/client";
 import styles from "./OrdersTable.module.css";
 import { format } from "date-fns";
 import { LinearProgress } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { hydrateOrders } from "@/store/ordersSlice";
 
 export const OrdersTable = () => {
-  const { data: orders, isLoading } = useGetOrdersQuery();
+  const dispatch = useDispatch();
+  const { data: fetchedOrders, isLoading } = useGetOrdersQuery();
+
+  useEffect(() => {
+    if (fetchedOrders) {
+      // @ts-expect-error Property 'products' is missing in type '{ id: string; deliveryDate: Date; customerName: string; status: string; totalPrice: number; }' but required in type 'Order' // TODO: fix this
+      dispatch(hydrateOrders(fetchedOrders));
+    }
+  }, [dispatch, fetchedOrders]);
+
+  const { orders } = useSelector((state: RootState) => state.orders);
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -31,7 +44,8 @@ export const OrdersTable = () => {
       {isLoading ? (
         <LinearProgress />
       ) : (
-        <DataGrid rows={orders || []} columns={columns} />
+        // @ts-expect-error prisma doesn't support this // TODO: fix this
+        <DataGrid rows={orders} columns={columns} />
       )}
     </div>
   );

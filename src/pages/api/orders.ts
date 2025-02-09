@@ -37,10 +37,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       break;
 
     case 'PATCH':
-      console.log(req.body)
       try {
         const { id, status } = req.body;
-        console.log(status)
         const updatedOrder = await prisma.order.update({
           where: { id },
           data: { status },

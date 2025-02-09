@@ -22,8 +22,16 @@ const ordersSlice = createSlice({
   name: 'orders',
   initialState,
   reducers: {
-    setOrders(state, action: PayloadAction<Order[]>) {
-      state.orders = action.payload;
+    hydrateOrders(state, action: PayloadAction<Order[]>) {
+      state.orders = [
+        ...(action.payload || []),
+        ...state.orders.filter(
+      (o) =>
+        !(action.payload || []).some(
+          (fetchedOrder) => fetchedOrder.id === o.id
+        )
+        ),
+      ];
     },
     addOrder(state, action: PayloadAction<Order>) {
       state.orders.push(action.payload);
@@ -37,5 +45,5 @@ const ordersSlice = createSlice({
   },
 });
 
-export const { setOrders, addOrder, updateOrderStatus } = ordersSlice.actions;
+export const { hydrateOrders, addOrder, updateOrderStatus } = ordersSlice.actions;
 export default ordersSlice.reducer; 

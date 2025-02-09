@@ -11,14 +11,20 @@ import {
   Checkbox,
   ListItemText,
   OutlinedInput,
+  Snackbar,
 } from "@mui/material";
 import { useCreateOrderMutation, useGetProductsQuery } from "@/services/api";
 import styles from "./OrderForm.module.css"; // Import the CSS module
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import { Product } from "@prisma/client";
+import { addOrder } from "@/store/ordersSlice";
+import { useDispatch } from "react-redux";
 
 export const OrderForm = () => {
+  const dispatch = useDispatch();
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [deliveryDate, setDeliveryDate] = useState<Dayjs | null>(null);
   const [status, setStatus] = useState<"pending" | "completed" | "cancelled">(
@@ -49,7 +55,7 @@ export const OrderForm = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      await createOrder({
+      const newOrder = await createOrder({
         customerName,
         deliveryDate: deliveryDate?.toDate(),
         status,
@@ -57,14 +63,21 @@ export const OrderForm = () => {
         // @ts-expect-error prisma doesn't support this // TODO: fix this
         productIds: selectedProducts,
       }).unwrap();
+
+      // @ts-expect-error Property 'products' is missing in type '{ id: string; deliveryDate: Date; customerName: string; status: string; totalPrice: number; }' but required in type 'Order' // TODO: fix this
+      dispatch(addOrder(newOrder));
       // Reset form fields after successful submission
       setCustomerName("");
       setDeliveryDate(null);
       setStatus("pending");
       setTotalPrice(0);
       setSelectedProducts([]);
+      setToastOpen(true);
+      setToastMessage("Order created successfully");
     } catch (err) {
       console.error("Failed to create order:", err);
+      setToastOpen(true);
+      setToastMessage("Failed to create order");
     }
   };
 
@@ -152,6 +165,13 @@ export const OrderForm = () => {
       >
         {isLoading ? "Submitting..." : "Create Order"}
       </Button>
+      <Snackbar
+        open={toastOpen}
+        autoHideDuration={5000}
+        onClose={() => setToastOpen(false)}
+        message={toastMessage}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      />
     </form>
   );
 };

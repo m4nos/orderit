@@ -36,7 +36,7 @@ const ordersSlice = createSlice({
     addOrder(state, action: PayloadAction<Order>) {
       state.orders.push(action.payload);
     },
-    updateOrderStatus(state, action: PayloadAction<{ id: string; status: 'completed' | 'cancelled' }>) {
+    updateStatus(state, action: PayloadAction<{ id: string; status: 'completed' | 'cancelled' }>) {
       const order = state.orders.find(order => order.id === action.payload.id);
       if (order) {
         order.status = action.payload.status;
@@ -45,5 +45,5 @@ const ordersSlice = createSlice({
   },
 });
 
-export const { hydrateOrders, addOrder, updateOrderStatus } = ordersSlice.actions;
+export const { hydrateOrders, addOrder, updateStatus } = ordersSlice.actions;
 export default ordersSlice.reducer; 

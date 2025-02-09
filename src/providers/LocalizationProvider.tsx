@@ -5,7 +5,7 @@ import { LocalizationProvider as MuiLocalizationProvider } from "@mui/x-date-pic
 
 const LocalizationProvider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <MuiLocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="el">
+    <MuiLocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en">
       {children}
     </MuiLocalizationProvider>
   );
